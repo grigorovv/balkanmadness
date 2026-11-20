@@ -1,0 +1,22 @@
+{
+  "artists": [
+    {
+      "name": "KRISKO",
+      "img": "/assets/artist-krisko.jpg",
+      "cutout": false,
+      "bio": "One of the biggest names in Balkan hip-hop, Krisko brings chart-topping hits and a stage presence that turns any room into a sold-out arena. Expect an explosive set full of the anthems everyone knows word for word."
+    },
+    {
+      "name": "DESSITA",
+      "img": "",
+      "cutout": false,
+      "bio": "Dessita's sound blends pop sensibility with unmistakable Balkan flavor. Her live shows are known for raw vocals and a connection with the crowd that makes every performance feel personal."
+    },
+    {
+      "name": "ANDREA",
+      "img": "",
+      "cutout": false,
+      "bio": "A rising force in the scene, Andrea combines high-energy production with a magnetic stage presence. This is a set built for a crowd that wants to move all night long."
+    }
+  ]
+}

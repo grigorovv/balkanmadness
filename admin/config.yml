@@ -1,0 +1,107 @@
+# Decap CMS — owners log in at /admin to edit content. Every save is a commit to the repo,
+# and the host (Netlify / Cloudflare Pages) redeploys the site in ~1 minute.
+backend:
+  name: github
+  repo: grigorovv/balkanmadness
+  branch: main
+  # base_url: https://your-oauth-proxy.example.com   # only needed when NOT hosting on Netlify
+
+# Local testing: run `npx decap-server` in the project folder, then open http://localhost:8080/admin/
+local_backend: true
+
+site_url: https://balkanmadness.nl   # TODO: real domain
+logo_url: /assets/logo.png
+locale: en
+
+media_folder: assets/uploads
+public_folder: /assets/uploads
+
+collections:
+  - name: events
+    label: Events
+    description: Upcoming vs. past is decided automatically by the event date. Order doesn't matter — the site sorts by date.
+    editor: { preview: false }
+    files:
+      - name: events
+        label: All events
+        file: content/events.json
+        fields:
+          - label: Events
+            name: events
+            widget: list
+            label_singular: event
+            add_to_top: true
+            summary: "{{fields.date}} — {{fields.name}}"
+            fields:
+              - { label: Event name, name: name, widget: string, hint: "Shown in capitals on the site, e.g. STUDENTS WELCOME NIGHT" }
+              - { label: Date, name: date, widget: datetime, format: "YYYY-MM-DD", date_format: "DD MMM YYYY", time_format: false, picker_utc: true }
+              - { label: Time, name: time, widget: string, required: false, hint: "e.g. 23:00–04:00 or 'from 23:00' or '20:00–23:00 (doors 19:00)'" }
+              - { label: Poster / photo, name: img, widget: image, choose_url: false, hint: "Upload a JPG or WebP, ideally under 500 KB" }
+              - label: Poster crop
+                name: pos
+                widget: select
+                default: center
+                hint: Which part of the image stays visible on the event cards
+                options:
+                  - { label: Center, value: center }
+                  - { label: Top, value: top }
+                  - { label: Upper middle, value: center 35% }
+                  - { label: Just above center, value: center 40% }
+                  - { label: Bottom, value: bottom }
+                  - { label: Left, value: left center }
+                  - { label: Right, value: right center }
+              - { label: Type (shown on past events), name: tag, widget: select, options: [PARTY, CONCERT, FESTIVAL], default: PARTY }
+              - { label: Full venue / address, name: venue, widget: string, hint: "e.g. Effenaar Main Hall, Dommelstraat 2, Eindhoven" }
+              - { label: Short venue (cards), name: venueShort, widget: string, hint: "e.g. Effenaar, Eindhoven" }
+              - { label: Line-up, name: lineup, widget: string, required: false }
+              - { label: Hosted by, name: hosts, widget: string, required: false }
+              - { label: Description, name: description, widget: text }
+              - { label: Ticket link, name: tickets, widget: string, required: false, hint: "Leave empty to hide the GET TICKETS button" }
+              - { label: Facebook event link, name: fb, widget: string, required: false }
+
+  - name: artists
+    label: Artists
+    editor: { preview: false }
+    files:
+      - name: artists
+        label: Artists
+        file: content/artists.json
+        fields:
+          - label: Artists
+            name: artists
+            widget: list
+            label_singular: artist
+            summary: "{{fields.name}}"
+            hint: Drag to reorder. Photos alternate left / right automatically.
+            fields:
+              - { label: Name, name: name, widget: string }
+              - { label: Photo, name: img, widget: image, required: false, choose_url: false }
+              - { label: "Photo has a transparent background (PNG cut-out)", name: cutout, widget: boolean, default: false }
+              - { label: Bio, name: bio, widget: text }
+
+  - name: site
+    label: Page text & contact
+    editor: { preview: false }
+    files:
+      - name: site
+        label: Page text & contact
+        file: content/site.json
+        fields:
+          - label: Hero photos
+            name: heroImages
+            widget: list
+            label_singular: photo
+            hint: "1 photo = static. 2 or more = automatic slideshow every 6 seconds."
+            summary: "{{fields.image}}"
+            fields:
+              - { label: Photo, name: image, widget: image, choose_url: false }
+          - { label: Hero tagline, name: tagline, widget: text }
+          - { label: Hero TICKETS button link, name: ticketsUrl, widget: string, required: false, hint: "Leave empty to use the ticket link of the next upcoming event" }
+          - { label: "Who we are — heading", name: whoHeading, widget: string }
+          - { label: "Who we are — text", name: whoText, widget: text }
+          - { label: Contact intro text, name: contactText, widget: text }
+          - { label: Email, name: email, widget: string }
+          - { label: Phone, name: phone, widget: string }
+          - { label: Address, name: address, widget: string }
+          - { label: Instagram link, name: instagram, widget: string }
+          - { label: Facebook link, name: facebook, widget: string }
