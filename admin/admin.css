@@ -1,0 +1,205 @@
+/* BalkanMadness skin for Decap CMS: dark, red accents, site fonts.
+   Decap names its elements like "css-abc123-AppHeader", so we target [class*="-Name"]. */
+:root {
+  --a-bg: #0a0a0a;
+  --a-panel: #141414;
+  --a-panel-2: #1c1c1c;
+  --a-input: #0f0f0f;
+  --a-line: rgba(255, 255, 255, 0.09);
+  --a-line-strong: rgba(255, 255, 255, 0.18);
+  --a-ink: #f2f0ee;
+  --a-body: #c9c6c4;
+  --a-muted: #9a9694;
+  --a-red: #e0333f;
+  --a-red-hover: #ff4d57;
+  --a-red-soft: rgba(224, 51, 63, 0.14);
+}
+
+html, body, #nc-root { background: var(--a-bg) !important; color: var(--a-ink); }
+body, button, input, textarea, select { font-family: 'Inter', sans-serif !important; }
+::selection { background: var(--a-red); color: #fff; }
+a { color: var(--a-ink); }
+
+/* ---------- Login ---------- */
+[class*="-AuthenticationPage"], [class*="-StyledAuthenticationPage"] {
+  background: radial-gradient(ellipse at 50% 35%, rgba(224, 51, 63, 0.16), transparent 60%), var(--a-bg) !important;
+}
+[class*="-AuthenticationPage"] button, [class*="-LoginButton"] {
+  background: var(--a-red) !important; color: #fff !important; border-radius: 2px !important;
+  letter-spacing: 1.5px; font-weight: 600 !important; text-transform: uppercase; padding: 0 28px !important; height: 44px !important;
+  box-shadow: none !important;
+}
+[class*="-AuthenticationPage"] button:hover, [class*="-LoginButton"]:hover { background: var(--a-red-hover) !important; }
+[class*="-GoBackButton"], [class*="-AuthenticationPage"] a { color: var(--a-muted) !important; }
+[class*="-AuthenticationPage"] img, [class*="-CustomIconWrapper"] img { filter: drop-shadow(0 6px 24px rgba(0, 0, 0, 0.8)); }
+
+/* ---------- Top bar ---------- */
+[class*="-AppHeader-"], [class*="-AppHeader "] {
+  background: rgba(10, 10, 10, 0.92) !important; backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--a-line); box-shadow: none !important;
+}
+[class*="-AppHeaderContent"] { background: transparent !important; }
+[class*="-AppHeaderNavLink"], [class*="-AppHeaderButton"] { color: var(--a-muted) !important; font-weight: 600 !important; letter-spacing: 0.5px; }
+[class*="-AppHeaderNavLink"] svg, [class*="-AppHeaderButton"] svg { color: inherit !important; }
+[class*="-AppHeaderNavLink"]:hover, [class*="buttonActive"][class*="-AppHeaderNavLink"].active,
+[class*="-AppHeaderNavLink"][aria-current="page"], [class*="-AppHeaderNavLink"].active { color: var(--a-ink) !important; }
+[class*="-AppHeaderNavLink"].active svg { color: var(--a-red) !important; }
+[class*="-AppHeaderSiteLink"] { color: var(--a-muted) !important; }
+[class*="-AppHeaderSiteLink"]:hover { color: var(--a-red) !important; }
+[class*="-AppHeaderQuickNewButton"] { background: var(--a-red) !important; color: #fff !important; border-radius: 2px !important; }
+
+/* ---------- Cards / panels ---------- */
+[class*="-card-card"], [class*="-SidebarContainer"], [class*="-CollectionTopContainer"] {
+  background: var(--a-panel) !important; border: 1px solid var(--a-line) !important; border-radius: 4px !important;
+  box-shadow: none !important; color: var(--a-ink) !important;
+}
+[class*="-cardTopHeading"], [class*="-SidebarHeading"], [class*="-CollectionTopHeading"] {
+  font-family: 'Bebas Neue', sans-serif !important; font-weight: 400 !important; letter-spacing: 1px;
+  font-size: 34px !important; color: #f7f5f4 !important; line-height: 1 !important;
+}
+[class*="-cardTopDescription"] { color: var(--a-muted) !important; }
+
+/* Sidebar */
+[class*="-SidebarNavLink"] { color: var(--a-body) !important; border-left: 2px solid transparent !important; }
+[class*="-SidebarNavLink"]:hover { background: var(--a-panel-2) !important; color: var(--a-ink) !important; }
+[class*="-SidebarNavLink"].active, [class*="sidebarNavLinkActive"].active {
+  background: var(--a-red-soft) !important; color: var(--a-ink) !important; border-left-color: var(--a-red) !important;
+}
+[class*="-SidebarNavLink"] svg { color: inherit !important; }
+[class*="-SearchInput"], [class*="-InputContainer"] input {
+  background: var(--a-input) !important; color: var(--a-ink) !important; border: 1px solid var(--a-line) !important; border-radius: 2px !important;
+}
+[class*="-SearchContainer"] svg { color: var(--a-muted) !important; }
+
+/* Primary "New" buttons */
+[class*="-CollectionTopNewButton"], [class*="-FileWidgetButton-"]:not([class*="Remove"]) {
+  background: var(--a-red) !important; color: #fff !important; border-radius: 2px !important;
+  font-weight: 600 !important; letter-spacing: 1px; box-shadow: none !important;
+}
+[class*="-CollectionTopNewButton"]:hover, [class*="-FileWidgetButton-"]:not([class*="Remove"]):hover { background: var(--a-red-hover) !important; }
+
+/* View controls */
+[class*="-ViewControlsSection"], [class*="-ViewControlsButton"] { color: var(--a-muted) !important; }
+[class*="-ViewControlsButton"][class*="isActive"], [class*="-ViewControlsButton"]:hover { color: var(--a-red) !important; }
+[class*="-ControlButton"] { color: var(--a-muted) !important; background: transparent !important; }
+
+/* Entry cards (list + grid) */
+[class*="-ListCard"], [class*="-GridCard"] {
+  background: var(--a-panel) !important; border: 1px solid var(--a-line) !important; border-radius: 4px !important;
+  box-shadow: none !important; transition: border-color 0.2s, transform 0.2s;
+}
+[class*="-ListCard"]:hover, [class*="-GridCard"]:hover { border-color: var(--a-red) !important; transform: translateY(-2px); }
+[class*="-ListCard"] a, [class*="-GridCardLink"] { color: var(--a-ink) !important; }
+[class*="-CardHeading"], [class*="-ListCardTitle"] { color: var(--a-ink) !important; font-weight: 600 !important; letter-spacing: 0.3px; }
+[class*="-CardBody"] { background: transparent !important; }
+[class*="-CardBody"]::after { background: linear-gradient(transparent, var(--a-panel)) !important; }
+[class*="-GroupHeading"], [class*="-GroupContainer"] h2 {
+  font-family: 'Bebas Neue', sans-serif !important; font-weight: 400 !important; letter-spacing: 1px; color: var(--a-red) !important; font-size: 26px !important;
+}
+
+/* Dropdown menus */
+[class*="-DropdownList"], [class*="-StyledMenuItem"], [role="menu"] {
+  background: var(--a-panel-2) !important; color: var(--a-ink) !important; border-color: var(--a-line) !important;
+}
+[class*="-StyledMenuItem"]:hover, [class*="-StyledMenuItem"]:focus { background: var(--a-red-soft) !important; color: var(--a-ink) !important; }
+
+/* ---------- Editor ---------- */
+[class*="-EditorContainer"], [class*="-ControlPaneContainer"], [class$="-Editor"] { background: var(--a-bg) !important; }
+[class*="-ToolbarContainer"] {
+  background: var(--a-panel) !important; border-bottom: 1px solid var(--a-line) !important; box-shadow: none !important;
+}
+[class*="-ToolbarSection"] { border-color: var(--a-line) !important; }
+[class*="-BackArrow"], [class*="-BackCollection"] { color: var(--a-ink) !important; }
+[class*="textBadgeSuccess"] { color: #5ec27a !important; }
+[class*="textBadgeDanger"] { color: var(--a-red-hover) !important; }
+[class*="-PublishedToolbarButton"], [class*="publishedButton"] { background: rgba(94, 194, 122, 0.14) !important; color: #7fd497 !important; }
+[class*="-PublishButton"], [class*="-ToolbarDropdown"] button:not([class*="published"]) {
+  background: var(--a-red) !important; color: #fff !important;
+}
+[class*="-DeleteButton"] { background: transparent !important; color: var(--a-muted) !important; border: 1px solid var(--a-line) !important; }
+[class*="-DeleteButton"]:hover { color: var(--a-red-hover) !important; border-color: var(--a-red) !important; }
+[class*="-PreviewLink"], [class*="-AppHeaderLink"] { color: var(--a-muted) !important; }
+[class*="-ButtonRound"], [class*="-EditorToggle"] { background: var(--a-panel-2) !important; color: var(--a-ink) !important; border: 1px solid var(--a-line) !important; box-shadow: none !important; }
+[class*="-StyledSplitPane"] { background: transparent !important; border: none !important; }
+[class*="-StyledSplitPane"] .Resizer { background: var(--a-line) !important; border-color: transparent !important; }
+[class*="-PreviewPaneContainer"]:not([class*="ControlPane"]) { background: var(--a-bg) !important; }
+[class*="-PreviewPaneFrame"] { background: var(--a-bg) !important; border-left: 1px solid var(--a-line); }
+
+/* Fields */
+[class*="-ControlContainer"] { margin-bottom: 26px; }
+[class*="-FieldLabel"], [class*="fieldLabel"] {
+  background: transparent !important; color: var(--a-muted) !important; border: none !important;
+  font-size: 11px !important; letter-spacing: 2px !important; font-weight: 600 !important; padding: 0 0 8px !important;
+}
+[class*="-ControlContainer"]:focus-within [class*="-FieldLabel"] { color: var(--a-red) !important; }
+[class*="-ControlContainer"] > div[class^="css-"]:not([class*="-ControlTopbar"]):not([class*="-ObjectControl"]):not([class*="-ListControl"]),
+[class*="-ControlContainer"] input:not([type="checkbox"]):not([id^="react-select"]), [class*="-ControlContainer"] textarea,
+[class*="-TextControl"], [class*="-DateTimeControl"], [class*="-StringControl"] {
+  background: var(--a-input) !important; color: var(--a-ink) !important;
+  border: 1px solid var(--a-line-strong) !important; border-radius: 2px !important; box-shadow: none !important;
+}
+[class*="-ControlContainer"] input:focus, [class*="-ControlContainer"] textarea:focus { border-color: var(--a-red) !important; outline: none; }
+[class*="-ControlContainer"] input[type="date"] { color-scheme: dark; }
+[class*="-ControlHint"] { color: var(--a-muted) !important; font-size: 12px !important; }
+[class*="-ControlTopbar"] { background: transparent !important; }
+[class*="-ImageWrapper"], [class*="checkerboard"] { background-color: #111 !important; border-color: var(--a-line) !important; }
+[class*="-FileWidgetButtonRemove"] { background: transparent !important; color: var(--a-muted) !important; border: 1px solid var(--a-line) !important; }
+[class*="-FileWidgetButtonRemove"]:hover { color: var(--a-red-hover) !important; border-color: var(--a-red) !important; }
+[class*="-Buttons"] button, [class*="-widget-Buttons"] button { background: var(--a-panel-2) !important; color: var(--a-body) !important; }
+
+/* Field box wrapper (Decap draws a border box around each widget) */
+[class*="-ControlContainer"] > div:not([class]) { border-color: var(--a-line-strong) !important; }
+[class*="-ControlContainer"] > div[class*="widget"], [class*="-ControlContainer"] [class*="-Wrapper"] { background: transparent !important; }
+
+/* Select (react-select) */
+[class*="-control"] { background: var(--a-input) !important; border-color: var(--a-line-strong) !important; box-shadow: none !important; }
+[class*="-singleValue"], [class*="-placeholder"] { color: var(--a-ink) !important; }
+[class*="-menu"] { background: var(--a-panel-2) !important; border: 1px solid var(--a-line) !important; }
+[class*="-option"] { background: transparent !important; color: var(--a-body) !important; }
+[class*="-option"]:hover, [class*="-option--is-focused"] { background: var(--a-red-soft) !important; color: var(--a-ink) !important; }
+[class*="-option--is-selected"] { color: var(--a-red) !important; }
+
+/* Lists (artists, hero photos) */
+[class*="-ListControl"], [class*="-TopBar"], [class*="-ListItemTopBar"], [class*="-StyledListItemTopBar"] {
+  background: var(--a-panel-2) !important; color: var(--a-ink) !important; border-color: var(--a-line) !important;
+}
+[class*="-ObjectControl"], [class*="-ListItem"], [class*="-SortableListItem"] {
+  background: var(--a-panel) !important; border-color: var(--a-line-strong) !important; color: var(--a-ink) !important;
+}
+[class*="-NestedObjectLabel"], [class*="-ListControl"] p { color: var(--a-body) !important; background: transparent !important; }
+[class*="-AddButton"], [class*="-TopBar"] > button { background: var(--a-red) !important; color: #fff !important; border-radius: 2px !important; }
+[class*="-ListItemTopBar"] button, [class*="-StyledListItemTopBar"] button, [class*="-ListControl"] [class*="-TopBar"] > button:first-child,
+[class*="-ExpandButton"], [class*="-RemoveButton"] { background: transparent !important; color: var(--a-muted) !important; }
+[class*="-RemoveButton"]:hover { color: var(--a-red-hover) !important; }
+[class*="-DragHandle"], [class*="-ExpandButton"] svg, [class*="-ToggleButton"] svg { color: var(--a-muted) !important; }
+
+/* Boolean toggle */
+[class*="-ToggleBackground"] { background: var(--a-line-strong) !important; }
+[class*="-ToggleHandle"] { background: var(--a-ink) !important; }
+[aria-checked="true"] [class*="-ToggleBackground"] { background: var(--a-red) !important; }
+
+/* Media library */
+[class*="-MediaLibrary"], [class*="-StyledModal"], [class*="-ReactModal"] { background: var(--a-panel) !important; color: var(--a-ink) !important; }
+[class*="-CardImageWrapper"], [class*="-MediaLibraryCard"] { background: var(--a-panel-2) !important; border-color: var(--a-line) !important; }
+[class*="-MediaLibraryCard"] p, [class*="-CardText"] { color: var(--a-body) !important; }
+
+/* Notifications */
+[class*="toast"], .Toastify__toast { background: var(--a-panel-2) !important; color: var(--a-ink) !important; border-left: 3px solid var(--a-red); }
+
+/* Scrollbars */
+* { scrollbar-color: #333 transparent; }
+
+/* Active states (Decap marks them with these plain class names) */
+.sidebar-active { background: var(--a-red-soft) !important; color: var(--a-ink) !important; border-left-color: var(--a-red) !important; }
+.sidebar-active svg { color: var(--a-red) !important; }
+.header-link-active { color: var(--a-ink) !important; }
+.header-link-active svg { color: var(--a-red) !important; }
+#nprogress .bar { background: var(--a-red) !important; }
+#nprogress .peg { box-shadow: 0 0 10px var(--a-red), 0 0 5px var(--a-red) !important; }
+
+[class*="-FieldLabel"]::before, [class*="-FieldLabel"]::after { display: none !important; }
+[class*="-ControlContainer"] input[id^="react-select"], [class*="-singleValue"] ~ div input, [class*="-placeholder"] ~ div input { background: transparent !important; border: none !important; color: var(--a-ink) !important; }
+/* react-select's inner text input must stay invisible (it otherwise picks up the field-box styling above) */
+[class*="-ControlContainer"] [class*="-control"] input:not([type="checkbox"]):not([id^="react-select"]) {
+  background: transparent !important; border: none !important; box-shadow: none !important; padding: 0 !important;
+}

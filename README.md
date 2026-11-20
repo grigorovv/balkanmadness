@@ -11,15 +11,18 @@ balkanmadness_site/
 ├── content/        ← ALL editable content (JSON), edited by the owners in /admin
 │   ├── site.json       hero photos, tagline, who-we-are text, contact details
 │   ├── artists.json
-│   └── events.json
-├── admin/          ← the owners' content editor (Decap CMS): index.html + config.yml
-├── main.js         ← behavior: hero crossfade, scroll reveal, event cards, modal, form
+│   └── events/         one file per event (events.json is generated from these, not committed)
+├── render.js       ← HTML builders shared by the site AND the admin previews
+├── main.js         ← behavior: hero crossfade, scroll reveal, modal, form
+├── admin/          ← the owners' editor (Decap CMS): config.yml, admin.css (dark skin), preview.js (live previews)
+├── scripts/build-content.js ← combines content/events/*.json → content/events.json (Netlify runs it on deploy)
+├── netlify.toml    ← build command + publish folder
 ├── assets/         ← logo, hero photo, Krisko photo, event posters (uploads/ = images added via /admin)
 └── reference/
     └── BalkanMadness-design-reference.html  ← the original design, single self-contained file (visual source of truth)
 ```
 
-The site is plain HTML, CSS and JavaScript with no framework and no build step. `main.js` loads the content from `content/*.json`, so it has to be **served** (any static host, or locally with `npx http-server`): double-clicking `index.html` no longer loads the content. Layout is in `index.html` and styling in `styles.css`. The text already in `index.html` is a fallback; the JSON wins.
+The site is plain HTML, CSS and JavaScript with no framework. The only build step is a tiny script that combines the event files (Netlify runs it automatically). `main.js` loads the content from `content/*.json`, so it has to be **served** (any static host, or locally with `npx http-server`): double-clicking `index.html` no longer loads the content. Layout is in `index.html` and styling in `styles.css`. The text already in `index.html` is a fallback; the JSON wins.
 
 The file in `reference/` is a self-contained snapshot of the approved design. Treat it as the visual reference only, not the code to edit.
 
@@ -27,17 +30,18 @@ The file in `reference/` is a self-contained snapshot of the approved design. Tr
 
 The owners log in at `https://<site>/admin/` and get a simple editor with three sections:
 
-- **Events**: add, edit or remove events, and upload the poster. Pick the date in a calendar. An event becomes **Upcoming** (big featured card) automatically while its date is today or later, and moves to **Past events** the day after. Order doesn't matter: upcoming events are sorted soonest first, past events newest first. The hero TICKETS button uses the next upcoming event's ticket link unless one is set under Page text.
-- **Artists**: name, photo, bio, cut-out flag. Drag to reorder.
-- **Page text & contact**: hero photos (2 or more turns on the slideshow), tagline, Who we are, contact intro, email, phone, address, socials.
+- **Events**: a grid of poster thumbnails, one entry per event. Click **+ Event** to add one, upload the poster, and the preview on the right shows the card exactly as on the site plus the pop-up visitors get when they click it. Pick the date in a calendar. An event becomes **Upcoming** (big featured card) automatically while its date is today or later, and moves to **Past events** the day after. Order doesn't matter: upcoming events are sorted soonest first, past events newest first. The hero TICKETS button uses the next upcoming event's ticket link unless one is set under Page text.
+- **Artists**: name, photo, bio, cut-out flag. Drag to reorder. The preview shows the whole artists section.
+- **Page text & contact**: the preview shows the hero (running the slideshow), Who we are and Contact. Fields: hero photos (2 or more turns on the slideshow), tagline, Who we are, contact intro, email, phone, address, socials.
 
 Clicking **Publish** commits the change to the GitHub repo, and the host redeploys the site in about a minute. Every change is versioned in git, so anything can be rolled back.
 
 ### Testing the admin locally
 
 ```bash
-npx decap-server            # terminal 1: lets /admin write to the local files (port 8081)
-npx http-server -p 8080 -c-1   # terminal 2: serves the site
+npx decap-server                          # terminal 1: lets /admin write to the local files (port 8081)
+node scripts/build-content.js --watch     # terminal 2: rebuilds content/events.json when events change
+npx http-server -p 8080 -c-1              # terminal 3: serves the site
 ```
 
 Open http://localhost:8080/admin/ and click Login (no password locally).

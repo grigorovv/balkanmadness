@@ -103,27 +103,10 @@
 </section>
 
 <div class="modal" id="modal" hidden>
-  <div class="modal__card" role="dialog" aria-modal="true">
-    <button class="modal__close" id="modalClose" aria-label="Close">&times;</button>
-    <div class="modal__poster" id="modalPoster"></div>
-    <div class="modal__body">
-      <div class="tag" id="modalTag"></div>
-      <div class="modal__title" id="modalTitle"></div>
-      <div class="modal__meta">
-        <div><div class="meta-label">WHEN</div><div id="modalWhen"></div></div>
-        <div><div class="meta-label">WHERE</div><div id="modalWhere"></div></div>
-        <div><div class="meta-label">LINE-UP</div><div id="modalLineup"></div></div>
-        <div><div class="meta-label">HOSTED BY</div><div id="modalHosts"></div></div>
-      </div>
-      <p class="body" id="modalDesc"></p>
-      <div class="modal__actions">
-        <a id="modalTickets" class="btn btn--red btn--solid btn--sm" target="_blank" rel="noopener">GET TICKETS</a>
-        <a id="modalFb" class="btn btn--outline-red btn--sm" target="_blank" rel="noopener">VIEW ON FACEBOOK</a>
-      </div>
-    </div>
-  </div>
+  <div class="modal__card" role="dialog" aria-modal="true" id="modalCard"></div>
 </div>
 
+<script src="render.js"></script>
 <script src="main.js"></script>
 </body>
 </html>

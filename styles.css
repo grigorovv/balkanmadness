@@ -154,6 +154,7 @@ img { display: block; }
   .nav__links a { font-size: 11px; }
   .artist, .artist--reverse { flex-direction: column; gap: 28px; }
   .artist__photo, .artist__text { min-width: 0; width: 100%; }
+  .artist__photo { flex: none; } /* column layout: flex-basis 0 would collapse the photo to 0 height */
   .upcoming__body { padding: 28px 22px; }
   .modal__body { padding: 24px 22px 30px; }
   .modal__poster { height: 50vh; }

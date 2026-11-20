@@ -1,4 +1,4 @@
-# Decap CMS — owners log in at /admin to edit content. Every save is a commit to the repo,
+# Decap CMS (look & previews: admin/admin.css, admin/preview.js) — owners log in at /admin to edit content. Every save is a commit to the repo,
 # and the host (Netlify / Cloudflare Pages) redeploys the site in ~1 minute.
 backend:
   name: github
@@ -19,49 +19,48 @@ public_folder: /assets/uploads
 collections:
   - name: events
     label: Events
-    description: Upcoming vs. past is decided automatically by the event date. Order doesn't matter — the site sorts by date.
-    editor: { preview: false }
-    files:
-      - name: events
-        label: All events
-        file: content/events.json
-        fields:
-          - label: Events
-            name: events
-            widget: list
-            label_singular: event
-            add_to_top: true
-            summary: "{{fields.date}} — {{fields.name}}"
-            fields:
-              - { label: Event name, name: name, widget: string, hint: "Shown in capitals on the site, e.g. STUDENTS WELCOME NIGHT" }
-              - { label: Date, name: date, widget: datetime, format: "YYYY-MM-DD", date_format: "DD MMM YYYY", time_format: false, picker_utc: true }
-              - { label: Time, name: time, widget: string, required: false, hint: "e.g. 23:00–04:00 or 'from 23:00' or '20:00–23:00 (doors 19:00)'" }
-              - { label: Poster / photo, name: img, widget: image, choose_url: false, hint: "Upload a JPG or WebP, ideally under 500 KB" }
-              - label: Poster crop
-                name: pos
-                widget: select
-                default: center
-                hint: Which part of the image stays visible on the event cards
-                options:
-                  - { label: Center, value: center }
-                  - { label: Top, value: top }
-                  - { label: Upper middle, value: center 35% }
-                  - { label: Just above center, value: center 40% }
-                  - { label: Bottom, value: bottom }
-                  - { label: Left, value: left center }
-                  - { label: Right, value: right center }
-              - { label: Type (shown on past events), name: tag, widget: select, options: [PARTY, CONCERT, FESTIVAL], default: PARTY }
-              - { label: Full venue / address, name: venue, widget: string, hint: "e.g. Effenaar Main Hall, Dommelstraat 2, Eindhoven" }
-              - { label: Short venue (cards), name: venueShort, widget: string, hint: "e.g. Effenaar, Eindhoven" }
-              - { label: Line-up, name: lineup, widget: string, required: false }
-              - { label: Hosted by, name: hosts, widget: string, required: false }
-              - { label: Description, name: description, widget: text }
-              - { label: Ticket link, name: tickets, widget: string, required: false, hint: "Leave empty to hide the GET TICKETS button" }
-              - { label: Facebook event link, name: fb, widget: string, required: false }
+    label_singular: Event
+    description: "Upcoming vs. past is automatic: an event is featured while its date is today or later, then moves to Past events."
+    folder: content/events
+    format: json
+    extension: json
+    create: true
+    delete: true
+    slug: "{{fields.date}}-{{name}}"
+    identifier_field: name
+    summary: "{{date | date('D MMM YYYY')}} · {{name}}"
+    sortable_fields: [date, name]
+    view_groups:
+      - { label: Year, field: date, pattern: "\\d{4}" }
+    fields:
+      - { label: Event name, name: name, widget: string, hint: "Shown in capitals on the site, e.g. STUDENTS WELCOME NIGHT" }
+      - { label: Date, name: date, widget: datetime, format: "YYYY-MM-DD", date_format: "DD MMM YYYY", time_format: false, picker_utc: true }
+      - { label: Time, name: time, widget: string, required: false, hint: "e.g. 23:00–04:00 · from 23:00 · 20:00–23:00 (doors 19:00)" }
+      - { label: Poster, name: image, widget: image, choose_url: false, hint: "JPG or WebP, ideally under 500 KB. Check the crop in the preview on the right." }
+      - label: Poster crop
+        name: pos
+        widget: select
+        default: center
+        hint: Which part of the poster stays visible on the cards
+        options:
+          - { label: Center, value: center }
+          - { label: Top, value: top }
+          - { label: Upper middle, value: center 35% }
+          - { label: Just above center, value: center 40% }
+          - { label: Bottom, value: bottom }
+          - { label: Left, value: left center }
+          - { label: Right, value: right center }
+      - { label: Type (label on past events), name: tag, widget: select, options: [PARTY, CONCERT, FESTIVAL], default: PARTY }
+      - { label: Full venue / address, name: venue, widget: string, hint: "e.g. Effenaar Main Hall, Dommelstraat 2, Eindhoven" }
+      - { label: Short venue (cards), name: venueShort, widget: string, hint: "e.g. Effenaar, Eindhoven" }
+      - { label: Line-up, name: lineup, widget: string, required: false }
+      - { label: Hosted by, name: hosts, widget: string, required: false }
+      - { label: Description, name: description, widget: text }
+      - { label: Ticket link, name: tickets, widget: string, required: false, hint: "Leave empty to hide the GET TICKETS button" }
+      - { label: Facebook event link, name: fb, widget: string, required: false }
 
   - name: artists
     label: Artists
-    editor: { preview: false }
     files:
       - name: artists
         label: Artists
@@ -81,7 +80,6 @@ collections:
 
   - name: site
     label: Page text & contact
-    editor: { preview: false }
     files:
       - name: site
         label: Page text & contact
