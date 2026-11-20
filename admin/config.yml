@@ -9,7 +9,7 @@ backend:
 # Local testing: run `npx decap-server` in the project folder, then open http://localhost:8080/admin/
 local_backend: true
 
-site_url: https://balkanmadness.nl   # TODO: real domain
+site_url: https://balkanmadness.netlify.app
 logo_url: /assets/logo.png
 locale: en
 
